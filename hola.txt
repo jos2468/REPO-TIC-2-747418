@@ -1,0 +1,91 @@
+Hola, ya quedó lista la parte base del backend para auth.
+
+Te paso lo que necesitas para conectar el front:
+
+Base URL
+http://localhost:4000
+
+Endpoints
+
+POST /api/auth/register
+
+POST /api/auth/login
+
+1) Register
+
+URL completa
+http://localhost:4000/api/auth/register
+
+Body (JSON)
+
+{
+  "email": "test@test.com",
+  "password": "123456"
+}
+
+Respuesta exitosa
+
+{
+  "message": "Usuario registrado correctamente"
+}
+
+Posible error
+
+{
+  "message": "El usuario ya existe"
+}
+2) Login
+
+URL completa
+http://localhost:4000/api/auth/login
+
+Body (JSON)
+
+{
+  "email": "test@test.com",
+  "password": "123456"
+}
+
+Respuesta exitosa
+
+{
+  "message": "Login exitoso",
+  "token": "jwt_token",
+  "user": {
+    "id": "user_id",
+    "email": "test@test.com"
+  }
+}
+
+Posible error
+
+{
+  "message": "Credenciales incorrectas"
+}
+Importante para el front
+
+El backend recibe email y password en formato JSON.
+
+En login, el token viene en la respuesta.
+
+Ese token lo puedes guardar temporalmente en localStorage o en estado global para después usarlo.
+
+El backend está corriendo en el puerto 4000.
+
+Ya tiene CORS habilitado, así que debería dejar conectar desde React sin problema.
+
+Ejemplo de fetch para login
+fetch("http://localhost:4000/api/auth/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    email,
+    password
+  })
+})
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+  });
